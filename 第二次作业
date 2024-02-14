@@ -1,0 +1,191 @@
+题目一：图书类
+public class Book {
+    private String title;
+    private String author;
+    private int year;
+    public Book(String title, String author, int year) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+    }
+    public void displayInfo() {
+        System.out.println("Title: " + title + ", Author: " + author + ", Year: " + year);
+    }
+}
+Book book = new Book("Java Programming", "John Smith", 2021);
+book.displayInfo();
+题目二：汽车类
+public class Vehicle {
+    private String brand;
+    private String color;
+    private int speed;
+    private int wheels;
+
+    public Vehicle(String brand, String color, int speed, int wheels) {
+        this.brand = brand;
+        this.color = color;
+        this.speed = speed;
+        this.wheels = wheels;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+    public String getBrand() {
+        return this.brand;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+    public String getColor() {
+        return this.color;
+}
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+    public int getSpeed() {
+        return this.speed;
+    }
+
+    public void setWheels(int wheels) {
+        this.wheels = wheels;
+    }
+    public int getWheels() {
+        return this.wheels;
+    }
+}
+
+public class Car extends Vehicle {
+    private int loader;
+
+    public Car(String brand, String color, int speed, int wheels, int loader) {
+        super(brand, color, speed, wheels);
+        this.loader = loader;
+    }
+
+    public void start() {
+        System.out.println("Car is started");
+    }
+
+    public void accelerate(int speed) {
+        this.setSpeed(this.getSpeed() + speed);
+        System.out.println("Car is accelerating at speed " + this.getSpeed() + " km/h");
+    }
+
+    public void brake() {
+        System.out.println("Car is braking");
+    }
+
+    public void exceedLoader() {
+        if (this.loader > 5) {
+            System.out.println("这是一辆小车,能载5人,实载" + this.loader + "人,你超员了！！！");
+        }
+Else {
+            System.out.println("这是一辆小车,能载5人,实载" + this.loader + "人");
+      }
+    }
+}
+
+public class Truck extends Vehicle {
+    private int loader;
+    private double payload;
+
+    public Truck(String brand, String color, int speed, int wheels, int loader, double payload) {
+        super(brand, color, speed, wheels);
+        this.loader = loader;
+        this.payload = payload;
+    }
+
+    public void start() {
+        System.out.println("Truck is started");
+    }
+
+    public void accelerate(int speed) {
+        this.setSpeed(this.getSpeed() + speed);
+        System.out.println("Truck is accelerating at speed " + this.getSpeed() + " km/h");
+    }
+
+    public void brake() {
+        System.out.println("Truck is braking");
+    }
+
+    public void exceedLoader() {
+        if (this.loader > 3) {
+            System.out.println("这是一辆卡车,能载3人,实载" + this.loader + "人,你超员了！！！");
+        }
+        Else {
+             System.out.println("这是一辆卡车,能载3人,实载" + this.loader + "人");   
+}
+    }
+
+    public void exceedPayload() {
+if (this.payload > 5000) {
+            System.out.println("这是一辆卡车,核载5000kg,你已装载" + this.payload + "kg,你超载了！！！");
+        }
+        else {
+            System.out.println("这是一辆卡车,核载5000kg,你已装载" + this.payload + "kg");
+      }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car car = new Car("Toyota", "Red", 50, 4, 3);
+        System.out.println("车轮的个数是:" + car.getWheels());
+        car.start();
+        car.accelerate(60);
+        car.brake();
+        car.setLoader(6);
+        car.exceedLoader();
+
+        Truck truck = new Truck("Volvo", "Blue", 40, 6, 1, 3000);
+        System.out.println("车轮的个数是:" + truck.getWheels());
+        truck.start();
+        truck.accelerate(30);
+        truck.brake();
+        truck.setPayload(7000);
+        truck.exceedLoader();
+        truck.exceedPayload();
+    }
+}
+题目三：计算器类
+public class Calculator {
+    public double add(double a, double b) {
+        double result = a + b;
+        System.out.println("Addition: " + result);
+        return result;
+    }
+    public double subtract(double a, double b) {
+        double result = a - b;
+        System.out.println("Subtraction: " + result);
+        return result;
+    }
+    public double multiply(double a, double b) {
+        double result = a * b;
+        System.out.println("Multiplication: " + result);
+        return result;
+    }
+    public double divide(double a, double b) {
+        double result = a / b;
+        System.out.println("Division: " + result);
+        return result;
+    }
+}
+题目四：最长公共前缀
+public String longestCommonPrefix(String[] strs) {
+    if (strs == null || strs.length == 0) {
+        return "";
+    }
+    String prefix = strs[0];
+    for (int i = 1; i < strs.length; i++) {
+        while (strs[i].indexOf(prefix) != 0) {
+            prefix = prefix.substring(0, prefix.length() - 1);
+            if (prefix.isEmpty()) {
+                return "";
+            }
+        }
+    }
+    return prefix;
+}
