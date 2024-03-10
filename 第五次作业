@@ -1,0 +1,66 @@
+CREATE TABLE students (
+  sno VARCHAR(10) PRIMARY KEY,
+  sname VARCHAR(20),
+  age INT,
+  department VARCHAR(30)
+);
+import java.sql.*;
+public class StudentDatabase {
+    public static void main(String[] args) {
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            // 1.连接数据库
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "root", "password");
+            // 2.创建Statement对象
+            stmt = conn.createStatement();
+            // 3.插入数据
+            String sql = "INSERT INTO students VALUES " +
+                    "('s001','老大',20,'计算机学院')," +
+                    "('s002','老二',19,'计算机学院')," +
+                    "('s003','老三',18,'计算机学院')," +
+                    "('s004','老四',17,'计算机学院')";
+            int rowCount = stmt.executeUpdate(sql);
+            System.out.println(rowCount + " rows inserted.");
+            // 4.查询数据
+            sql = "SELECT * FROM students";
+            ResultSet rs = stmt.executeQuery(sql);
+            // 5.遍历输出结果
+            while (rs.next()) {
+                String sno = rs.getString("sno");
+                String sname = rs.getString("sname");
+                int age = rs.getInt("age");
+                String department = rs.getString("department");
+                System.out.println(sno + "\t" + sname + "\t" + age + "\t" + department);
+            }
+            // 6.删除记录
+            sql = "DELETE FROM students WHERE sno='s004'";
+            rowCount = stmt.executeUpdate(sql);
+            System.out.println(rowCount + " rows deleted.");
+            // 7.查询记录
+            sql = "SELECT * FROM students WHERE sno='s003'";
+            rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                String sno = rs.getString("sno");
+                String sname = rs.getString("sname");
+                int age = rs.getInt("age");
+                String department = rs.getString("department");
+                System.out.println(sno + "\t" + sname + "\t" + age + "\t" + department);
+            }
+            // 8.修改记录
+            sql = "UPDATE students SET department='通信学院' WHERE sno='s001'";
+            rowCount = stmt.executeUpdate(sql);
+            System.out.println(rowCount + " rows updated.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // 9.关闭资源
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
